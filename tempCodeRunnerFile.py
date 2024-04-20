@@ -1,10 +1,3 @@
-#apenas 3 saques diarios
-#limite maximo de 500 por saque
-#Caso não tenha saldo, deve exibir mensagem de erro
-#Todas as operações tem que estar disponiveis no Extrato 
-#O formato deve ser R$xxx.xx 
-#operação de extrato deve listar todos os depositos e saques realizados
-
 menu = """
 
   [E]Extrato
