@@ -43,11 +43,17 @@ while True:
             print("Operação falhou!")
 
     elif opcao == "I":
-        valor = float(input("Qual o valor do emprestimo que deseja realizar?: "))
-        if valor > 5000:
-            print("Operação falhou! Valor acima do permitido para emprestimo nessa conta!")
-        else:    
-            print("Emprestimo de R$ {valor:.2f} realizado com sucesso!!!")
+        valor1 = float(input("Qual o valor do emprestimo que deseja realizar?: "))
+        
+        emprestimo_negado = emprestimo < valor1    
+
+        if emprestimo_negado:
+            print("Emprestimo negado, peça um valor mais baixo.")
+        elif valor1 > 0:
+            saldo += valor + valor1
+            extrato +=f"Emprestimo R$ {valor1:.2f}\n"
+        else:
+            print("Emprestimo realizado com sucesso de R$ {valor1:.2f}\n")  
 
     elif opcao == "S":
         valor = float(input("Informe o valor do saque: "))
@@ -62,7 +68,12 @@ while True:
             print("Operação falhou! Você excedeu o limite diario.")
         if excedeu_saques: 
             print("Operação falhou! Você não pode mais realizar nenhum saque hoje")
-
+        elif valor > 0:
+            saldo -= valor + valor1
+            extrato +=f"Saque R$ {valor:.2f}\n"
+            numero_saques += 1
+        else:
+            print("Saque realizado com sucesso")
 
     elif opcao == "Q":
         break
