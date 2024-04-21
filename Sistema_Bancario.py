@@ -1,10 +1,3 @@
-#apenas 3 saques diarios
-#limite maximo de 500 por saque
-#Caso não tenha saldo, deve exibir mensagem de erro
-#Todas as operações tem que estar disponiveis no Extrato 
-#O formato deve ser R$xxx.xx 
-#operação de extrato deve listar todos os depositos e saques realizados
-
 menu = """
 
   [E]Extrato
@@ -45,7 +38,7 @@ while True:
     elif opcao == "I":
         valor1 = float(input("Qual o valor do emprestimo que deseja realizar?: "))
         
-        emprestimo_negado = emprestimo < valor1    
+        emprestimo_negado = 5001
 
         if emprestimo_negado:
             print("Emprestimo negado, peça um valor mais baixo.")
@@ -53,7 +46,7 @@ while True:
             saldo += valor + valor1
             extrato +=f"Emprestimo R$ {valor1:.2f}\n"
         else:
-            print("Emprestimo realizado com sucesso de R$ {valor1:.2f}\n")  
+            print("Emprestimo realizado com sucesso!")  
 
     elif opcao == "S":
         valor = float(input("Informe o valor do saque: "))
