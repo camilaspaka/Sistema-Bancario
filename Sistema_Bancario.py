@@ -122,6 +122,7 @@ class Historico:
                 "data": datetime.now().strftime("%d-%m-%Y %H:%M:%s"),
             }
         )
+        
 class Transacao(ABC):
     @property
     @abstractproperty
