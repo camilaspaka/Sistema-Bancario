@@ -1,4 +1,4 @@
-import abc 
+from abc import ABC, abstractclassmethod, abstractproperty
 from datetime import datetime
 
 class Cliente:
@@ -85,7 +85,7 @@ class ContaCorrente(Conta):
 
     def sacar(self, valor):
         numero_saques = len(
-            [transacao for transacao in self.historico.transacoes if transacao["tipo"] = Saque._name_]
+            [transacao for transacao in self.historico.transacoes if transacao["tipo"] == Saque._name_]
         )
         excedeu_limite = valor > self.limite
         excedeu_saques = numero_saques >= self.limite_saques
@@ -101,7 +101,66 @@ class ContaCorrente(Conta):
     
     def _str_(self):
         return f"""\
-               
+               Agencia:\t{self.agencia}
+               C/C:\t\t{self.numero}
+               Titular:\t{self.cliente.nome}
+        """
+    
+class Historico:
+    def _init_(self):
+        self.transacoes = []
+
+    @property
+    def transacoes(self):
+        return self._transacoes
+    
+    def adicionar_transacao(self, transacao):
+        self._transacoes.append(
+            {
+                "tipo": transacao._class._name_,
+                "valor": transacao.valor,
+                "data": datetime.now().strftime("%d-%m-%Y %H:%M:%s"),
+            }
+        )
+class Transacao(ABC):
+    @property
+    @abstractproperty
+    def valor(self):
+        pass
+
+    @abstractclassmethod
+    def registrar(self, conta):
+        pass
+
+
+class Saque(Transacao):
+    def __init__(self, valor):
+        self._valor = valor
+
+    @property
+    def valor(self):
+        return self._valor
+
+    def registrar(self, conta):
+        sucesso_transacao = conta.sacar(self.valor)
+
+        if sucesso_transacao:
+            conta.historico.adicionar_transacao(self)
+
+
+class Deposito(Transacao):
+    def __init__(self, valor):
+        self._valor = valor
+
+    @property
+    def valor(self):
+        return self._valor
+
+    def registrar(self, conta):
+        sucesso_transacao = conta.depositar(self.valor)
+
+        if sucesso_transacao:
+            conta.historico.adicionar_transacao(self)
       
 
 
